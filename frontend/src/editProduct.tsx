@@ -80,6 +80,7 @@ export const EditProduct = () => {
         name='quantity'
         type='number'
         placeholder='Quantity'
+        value={formData.quantity}
         className='w-full px-4 py-2 border border-gray-300 rounded-md'
         onChange={handleChange}
         required

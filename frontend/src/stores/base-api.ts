@@ -6,6 +6,7 @@ const baseQuery = fetchBaseQuery({
 export const TAGS = {
   PRODUCTS: 'Products',
   CUSTOMERS: 'Customers',
+  CARTS: 'carts',
 } as const;
 
 export const baseAPI = createApi({

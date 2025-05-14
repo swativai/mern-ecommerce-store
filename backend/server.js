@@ -60,7 +60,8 @@ app.delete('/deleteProduct/:id', async (req, res) => {
 // create a new product in the database
 app.post('/addProducts', async (req, res) => {
   try {
-    const { name, company, price, description, image, category } = req.body;
+    const { name, company, price, description, image, category, quantity } =
+      req.body;
 
     await Products.create({
       name,
@@ -181,6 +182,69 @@ app.get('/cart', async (req, res) => {
     res.json(items);
   } catch (error) {
     res.status(500).json({ message: 'Failed to fetch cart', error });
+  }
+});
+
+app.delete('/deleteCart/:id', async (req, res) => {
+  const { id } = req.params;
+  await Cart.findByIdAndDelete(id);
+  res.status(200).json({ message: 'Item deleted from cart' });
+});
+
+app.put('/incrementQuantity/:id', async (req, res) => {
+  try {
+    const { quantity } = req.body;
+    if (typeof quantity !== 'number' || quantity < 1) {
+      return res.status(400).json({ message: 'Invalid quantity' });
+    }
+    const updateCartItem = await Cart.findByIdAndUpdate(
+      req.params.id,
+      { $set: { quantity } },
+      { new: true, runValidators: true },
+    );
+
+    if (!updateCartItem) {
+      return res.status(404).json({ message: 'Cart item not found' });
+    }
+
+    res.status(200).json({
+      message: 'Cart quantity updated successfully',
+      data: updateCartItem,
+    });
+  } catch (error) {
+    console.log('Error updating cart quantity', error);
+    res.status(500).json({
+      message: 'Error updating cart quantity',
+      error: error.message,
+    });
+  }
+});
+app.put('/decrementQuantity/:id', async (req, res) => {
+  try {
+    const { quantity } = req.body;
+    if (typeof quantity !== 'number' || quantity < 1) {
+      return res.status(400).json({ message: 'Invalid quantity' });
+    }
+    const updateCartItem = await Cart.findByIdAndUpdate(
+      req.params.id,
+      { $set: { quantity } },
+      { new: true, runValidators: true },
+    );
+
+    if (!updateCartItem) {
+      return res.status(404).json({ message: 'Cart item not found' });
+    }
+
+    res.status(200).json({
+      message: 'Cart quantity updated successfully',
+      data: updateCartItem,
+    });
+  } catch (error) {
+    console.log('Error updating cart quantity', error);
+    res.status(500).json({
+      message: 'Error updating cart quantity',
+      error: error.message,
+    });
   }
 });
 

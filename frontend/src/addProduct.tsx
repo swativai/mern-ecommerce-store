@@ -50,10 +50,11 @@ export const AddProduct: React.FC = () => {
     <>
       <button
         onClick={handleBackClick}
-        className='bg-white text-blue-500 px-4 py-2 rounded'
+        className='text-white absolute top-14 left-20  bg-blue-600  px-4 py-2 rounded'
       >
         Back
       </button>
+      <h1 className='text-4xl font-bold mb-6 text-center'>Add New Product</h1>
       <form
         onSubmit={handleSubmit}
         className='space-y-4 p-4 max-w-md mx-auto bg-white rounded-xl shadow-md'

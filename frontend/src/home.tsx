@@ -73,43 +73,45 @@ export const Home = () => {
 
       <div className='flex flex-wrap justify-center gap-8 p-10'>
         {backendData?.map((product) => (
-          <div
-            key={product._id}
-            className='bg-purple-100 flex flex-col w-72 p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300'
-          >
-            <Link to={`/product/${product._id}`}>
-              <div className='flex flex-col items-center gap-4'>
-                <h2 className='text-xl font-bold text-center text-purple-800'>
-                  {product.name}
-                </h2>
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className='w-40 h-40 rounded-xl object-cover shadow-md'
-                />
-                <p className='text-sm text-gray-700'>
-                  Company: {product.company}
-                </p>
-                <p className='text-lg font-semibold text-green-700'>
-                  Price: ₹{product.price}
-                </p>
+          <>
+            <div
+              key={product._id}
+              className='bg-purple-100 flex flex-col w-72 p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300'
+            >
+              <Link to={`/product/${product._id}`}>
+                <div className='flex flex-col items-center gap-4'>
+                  <h2 className='text-xl font-bold text-center text-purple-800'>
+                    {product.name}
+                  </h2>
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className='w-40 h-40 rounded-xl object-cover shadow-md'
+                  />
+                  <p className='text-sm text-gray-700'>
+                    Company: {product.company}
+                  </p>
+                  <p className='text-lg font-semibold text-green-700'>
+                    Price: ₹{product.price}
+                  </p>
+                </div>
+              </Link>
+              <div className='mt-4 flex flex-col gap-3'>
+                <button
+                  className='bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg shadow transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed'
+                  onClick={() => handleAddToCart(product)}
+                >
+                  Add To Cart
+                </button>
+                <button
+                  onClick={() => handleDelete(product._id)}
+                  className='bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow transition duration-300'
+                >
+                  Delete
+                </button>
               </div>
-            </Link>
-            <div className='mt-4 flex flex-col gap-3'>
-              <button
-                className='bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg shadow transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed'
-                onClick={() => handleAddToCart(product)}
-              >
-                Add To Cart
-              </button>
-              <button
-                onClick={() => handleDelete(product._id)}
-                className='bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow transition duration-300'
-              >
-                Delete
-              </button>
             </div>
-          </div>
+          </>
         ))}
       </div>
     </div>
